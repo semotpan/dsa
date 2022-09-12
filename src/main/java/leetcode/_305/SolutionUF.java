@@ -7,7 +7,7 @@ import java.util.List;
 // https://leetcode.com/problems/number-of-islands-ii/
 public class SolutionUF {
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
-        return new UnionFind(m, n, positions).counts();
+        return new UnionFind(m, n, positions).countSnapshots();
     }
 }
 
@@ -17,12 +17,12 @@ class UnionFind {
     private final int N;
     private final int[] id;
     private final int[] rank;
-    private final List<Integer> counts;
+    private final List<Integer> countSnapshots;
     private int count;
 
     public UnionFind(int m, int n, int[][] positions) {
 
-        counts = new LinkedList<>();
+        countSnapshots = new LinkedList<>();
         id = new int[n * m];
         rank = new int[n * m];
         M = m;
@@ -37,7 +37,7 @@ class UnionFind {
 
             // skip if already processed
             if (id[p] != -1) {
-                counts.add(count);
+                countSnapshots.add(count);
                 continue;
             }
 
@@ -49,7 +49,7 @@ class UnionFind {
             tryUnion(i, j - 1, p); // try to connect prev component on y axe
             tryUnion(i, j + 1, p); // try to connect next component on y axe
 
-            counts.add(count);
+            countSnapshots.add(count);
         }
     }
 
@@ -90,7 +90,7 @@ class UnionFind {
     }
 
     // method returns the number of components
-    public List<Integer> counts() {
-        return counts;
+    public List<Integer> countSnapshots() {
+        return countSnapshots;
     }
 }

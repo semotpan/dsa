@@ -3,27 +3,10 @@ package main
 import "fmt"
 
 func numIslands(grid [][]byte) int {
-	uf := NewUF(grid)
-	return uf.Count()
-}
-
-type UnionFind struct {
-	id    []int
-	rank  []int
-	count int
-}
-
-// NewUF create a new UnionFind using a grid as input value
-func NewUF(grid [][]byte) UnionFind {
-
 	N := len(grid)
 	M := len(grid[0])
 
-	uf := UnionFind{
-		id:    make([]int, N*M),
-		rank:  make([]int, N*M),
-		count: 0,
-	}
+	uf := NewUF(M, N)
 
 	for i := 0; i < N; i++ {
 		for j := 0; j < M; j++ {
@@ -36,21 +19,35 @@ func NewUF(grid [][]byte) UnionFind {
 				x := i - 1
 				if x >= 0 && grid[x][j] == '1' {
 					q := x*M + j
-					uf.union(p, q)
+					uf.Union(p, q)
 				}
 
 				// try to connect prev component on y axe
 				y := j - 1
 				if y >= 0 && grid[i][y] == '1' {
 					q := i*M + y
-					uf.union(p, q)
+					uf.Union(p, q)
 				}
 			}
 
 		}
 	}
 
-	return uf
+	return uf.Count()
+}
+
+type UnionFind struct {
+	id    []int
+	rank  []int
+	count int
+}
+
+func NewUF(m int, n int) UnionFind {
+	return UnionFind{
+		id:    make([]int, n*m),
+		rank:  make([]int, n*m),
+		count: 0,
+	}
 }
 
 // find returns an integer component identifier for a given site
@@ -66,8 +63,8 @@ func (uf *UnionFind) Count() int {
 	return uf.count
 }
 
-// union merges two components if the two sites are in different components
-func (uf *UnionFind) union(p int, q int) {
+// Union merges two components if the two sites are in different components
+func (uf *UnionFind) Union(p int, q int) {
 	pId := uf.find(p)
 	qId := uf.find(q)
 

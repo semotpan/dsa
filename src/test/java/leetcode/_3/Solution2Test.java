@@ -1,0 +1,56 @@
+package leetcode._3;
+
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class Solution2Test {
+
+    @Test
+    void test1() {
+        var s = "abcabcbb";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(3);
+    }
+
+    @Test
+    void test2() {
+        var s = "bbbbb";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(1);
+    }
+
+    @Test
+    void test3() {
+        var s = "pwwkew";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(3);
+    }
+
+    @Test
+    void test4() {
+        var s = " ";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(1);
+    }
+
+    @Test
+    void test5() {
+        var s = "aab";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(2);
+    }
+
+    @Test
+    void test6() {
+        var s = "dvdf";
+
+        assertThat(new Solution2().lengthOfLongestSubstring(s))
+                .isEqualTo(3);
+    }
+}

@@ -15,10 +15,7 @@ func NewUF(N int) UnionFind {
 		id[i] = i
 	}
 
-	return UnionFind{
-		id:    id,
-		count: N,
-	}
+	return UnionFind{id, N}
 }
 
 // Find returns an integer component identifier for a given site

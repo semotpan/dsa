@@ -16,11 +16,7 @@ func NewUFR(N int) UnionFindRank {
 		id[i] = i
 	}
 
-	return UnionFindRank{
-		id:    id,
-		rank:  make([]int, N),
-		count: N,
-	}
+	return UnionFindRank{id, make([]int, N), N}
 }
 
 // Find returns an integer component identifier for a given site

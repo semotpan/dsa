@@ -9,25 +9,22 @@ type KMP struct {
 
 // newInstance get an instance of KMP with preprocessed pattern
 func newInstance(pat string) KMP {
-	kmp := KMP{
-		lps: make([]int, len(pat)),
-		pat: pat,
-	}
-
+	lps := make([]int, len(pat))
 	pref := 0
+
 	for i := 1; i < len(pat); i++ {
 		for pref > 0 && pat[i] != pat[pref] {
-			pref = kmp.lps[pref-1]
+			pref = lps[pref-1]
 		}
 
 		if pat[i] == pat[pref] {
 			pref++
 		}
 
-		kmp.lps[i] = pref
+		lps[i] = pref
 	}
 
-	return kmp
+	return KMP{lps, pat}
 }
 
 // Search - function returns all indexes where pattern was matched

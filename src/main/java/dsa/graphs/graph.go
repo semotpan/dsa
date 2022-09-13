@@ -17,11 +17,7 @@ func newGraph(V int) Graph {
 		adj[i] = make([]int, 0)
 	}
 
-	return Graph{
-		V:   V,
-		E:   0,
-		adj: adj,
-	}
+	return Graph{V, 0, adj}
 }
 
 func (G *Graph) AddEdge(v int, w int) {

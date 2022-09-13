@@ -43,11 +43,7 @@ type UnionFind struct {
 }
 
 func NewUF(m int, n int) UnionFind {
-	return UnionFind{
-		id:    make([]int, n*m),
-		rank:  make([]int, n*m),
-		count: 0,
-	}
+	return UnionFind{make([]int, n*m), make([]int, n*m), 0}
 }
 
 // find returns an integer component identifier for a given site

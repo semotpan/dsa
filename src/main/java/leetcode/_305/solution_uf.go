@@ -27,14 +27,7 @@ func newUF(m int, n int) UnionFind {
 		id[i] = -1
 	}
 
-	return UnionFind{
-		N:         n,
-		M:         m,
-		id:        id,
-		rank:      make([]int, m*n),
-		snapshots: []int{},
-		count:     0,
-	}
+	return UnionFind{n, m, id, make([]int, m*n), []int{}, 0}
 }
 
 // Add adds a new component from coordinates position(x, y)

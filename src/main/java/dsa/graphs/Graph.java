@@ -23,6 +23,15 @@ public final class Graph {
             adj[i] = new LinkedList<>();
     }
 
+    public Graph(int V, int[][] edges) {
+        this(V);
+
+        for (var edge : edges) {
+            assert (edge.length == 2);
+            addEdge(edge[0], edge[1]);
+        }
+    }
+
     public void addEdge(int v, int w) {
         adj[v].add(w);
         adj[w].add(v);

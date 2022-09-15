@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DepthFirstSearchTest {
+class DepthFirstPathsTest {
 
     private Graph G;
 
@@ -23,12 +23,12 @@ class DepthFirstSearchTest {
     }
 
     @Test
-    void testing() {
-        var dfs = new DepthFirstSearch(G, 0);
+    void findingPathFrom0() {
+        var dfp = new DepthFirstPaths(G, 0);
 
-        assertThat(dfs.count())
-                .isEqualTo(6);
+        assertThat(dfp.hasPathTo(5)).isTrue();
 
-        assertThat(dfs.marked(5)).isTrue();
+        assertThat(dfp.pathTo(5))
+                .containsExactly(0, 2, 3, 5);
     }
 }

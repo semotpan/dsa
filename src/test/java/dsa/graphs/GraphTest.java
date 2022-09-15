@@ -8,7 +8,7 @@ class GraphTest {
 
     @Test
     void creation() {
-        int[][] edges = new int[][]{
+        var edges = new int[][]{
                 {0, 2},
                 {0, 1},
                 {0, 5},
@@ -18,7 +18,7 @@ class GraphTest {
                 {3, 4},
                 {3, 5}
         };
-        int V = 6;
+        var V = 6;
 
         var graph = new Graph(V);
 

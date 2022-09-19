@@ -32,12 +32,12 @@ func Dfp(G *Graph, source int) *DFP {
 }
 
 // HashPathTo - get true if there is a path to the vertex v
-func (dfp DFP) HashPathTo(v int) bool {
+func (dfp *DFP) HashPathTo(v int) bool {
 	return dfp.marked[v]
 }
 
 // PathTo - get the path from source to the vertex V >> (!!not the shortest)
-func (dfp DFP) PathTo(v int) []int {
+func (dfp *DFP) PathTo(v int) []int {
 	if !dfp.HashPathTo(v) {
 		return nil
 	}

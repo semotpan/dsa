@@ -24,15 +24,15 @@ func (d *Bag[C]) Add(item C) {
 	d.elements = append(d.elements, item)
 }
 
-func (d Bag[C]) Size() int {
+func (d *Bag[C]) Size() int {
 	return len(d.elements)
 }
 
-func (d Bag[C]) IsEmpty() bool {
+func (d *Bag[C]) IsEmpty() bool {
 	return d.Size() == 0
 }
 
-func (d Bag[C]) Iterator() *BagIterator[C] {
+func (d *Bag[C]) Iterator() *BagIterator[C] {
 	return d.iterator
 }
 
@@ -46,6 +46,9 @@ func (b *BagIterator[C]) HasNext() bool {
 
 }
 func (b *BagIterator[C]) Next() C {
+	if !b.HasNext() {
+		panic("No elements")
+	}
 	el := b.bag.elements[b.index]
 	b.index++
 	return el

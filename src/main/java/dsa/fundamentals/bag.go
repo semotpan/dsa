@@ -63,9 +63,7 @@ func main() {
 
 	fmt.Println(stringBag.Size())
 
-	iterator := stringBag.Iterator()
-
-	for iterator.HasNext() {
+	for iterator := stringBag.Iterator(); iterator.HasNext(); {
 		fmt.Println(iterator.Next())
 	}
 }

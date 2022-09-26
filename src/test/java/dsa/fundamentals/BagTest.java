@@ -1,11 +1,9 @@
 package dsa.fundamentals;
 
-import org.assertj.core.api.IterableAssert;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.IterableAssert.assertThatIterable;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BagTest {
 

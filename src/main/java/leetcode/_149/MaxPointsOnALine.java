@@ -14,34 +14,33 @@ public class MaxPointsOnALine {
 
         var maxPoints = 0;
         for (var x = 0; x < points.length - 1; ++x) {
-            maxPoints = Integer.max(maxPoints, maxCollinear(points[x], x + 1));
+            maxPoints = Integer.max(maxPoints, subMax(x));
         }
         return maxPoints;
     }
 
-    private int maxCollinear(int[] beggingPoint, int nextIndex) {
-        var slopes = new HashMap<Double, Integer>(points.length - nextIndex + 1, 1.0F);
-        int maxCollinear = 0, x1 = beggingPoint[0], y1 = beggingPoint[1];
+    private int subMax(int beggingIndex) {
+        var slopes = new HashMap<Double, Integer>(points.length - beggingIndex + 2, 1.0F);
+        int max = 0, x1 = points[beggingIndex][0], y1 = points[beggingIndex][1];
 
-        for (var y = nextIndex; y < points.length; ++y) {
+        for (var y = beggingIndex + 1; y < points.length; ++y) {
             int x2 = points[y][0], y2 = points[y][1];
-
             var slope = slope(x1, y1, x2, y2);
             var pointsCount = slopes.getOrDefault(slope, 0) + 1;
             slopes.put(slope, pointsCount);
-            maxCollinear = Integer.max(maxCollinear, pointsCount + 1);
+            max = Integer.max(max, pointsCount + 1);
         }
 
-        return maxCollinear;
+        return max;
     }
 
     private Double slope(int x1, int y1, int x2, int y2) {
         if (x1 == x2) { // Horizontal Line (x - constant)
-            return Double.MAX_VALUE;
+            return 10007.0; // max than 10^4 (bucket for horizontal)
         }
 
         if (y1 == y2) { // Vertical Line (y - constant)
-            return 0.0;
+            return 0.0;  // bucket for horizontal
         }
 
         return (double) (y1 - y2) / (double) (x1 - x2);

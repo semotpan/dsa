@@ -9,19 +9,12 @@ public class LongestPalindrome {
             frequency[s.charAt(i) - 'A']++;
         }
 
-        int even = 0, odd = 0;
+        int size = 0, odd = 0;
         for (int i = 0; i < 58; i++) {
-            if (frequency[i] > 1) {
-                var temp = frequency[i] % 2;
-                even = even + (frequency[i] - temp);
-                frequency[i] = temp;
-            }
-
-            if (frequency[i] == 1) {
-                odd = 1;
-            }
+            size += (frequency[i] >> 1) << 1;   // size += (frequency[i] / 2) * 2;
+            odd += (frequency[i] & 1);          // odd += (frequency[i] % 2);
         }
 
-        return even + odd;
+        return odd > 0 ? size + 1 : size;
     }
 }

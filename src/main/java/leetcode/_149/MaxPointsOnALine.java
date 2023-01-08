@@ -12,37 +12,39 @@ public class MaxPointsOnALine {
 
         this.points = points;
 
-        var max = 0;
+        var maxPoints = 0;
         for (var x = 0; x < points.length - 1; ++x) {
-            max = Integer.max(max, maxAt(points[x], x + 1));
+            maxPoints = Integer.max(maxPoints, maxCollinear(points[x], x + 1));
         }
-
-        return max;
+        return maxPoints;
     }
 
-    private int maxAt(int[] x, int y) {
-        var slopes = new HashMap<Double, Integer>(points.length - y + 1, 1.0F);
-        var maxLine = 0;
-        for (; y < points.length; ++y) {
-            var slope = slope(x[0], x[1], points[y][0], points[y][1]);
-            var value = slopes.getOrDefault(slope, 0) + 1;
-            slopes.put(slope, value);
-            maxLine = Integer.max(maxLine, value + 1);
+    private int maxCollinear(int[] beggingPoint, int nextIndex) {
+        var slopes = new HashMap<Double, Integer>(points.length - nextIndex + 1, 1.0F);
+        int maxCollinear = 0, x1 = beggingPoint[0], y1 = beggingPoint[1];
+
+        for (var y = nextIndex; y < points.length; ++y) {
+            int x2 = points[y][0], y2 = points[y][1];
+
+            var slope = slope(x1, y1, x2, y2);
+            var pointsCount = slopes.getOrDefault(slope, 0) + 1;
+            slopes.put(slope, pointsCount);
+            maxCollinear = Integer.max(maxCollinear, pointsCount + 1);
         }
 
-        return maxLine;
+        return maxCollinear;
     }
 
-    private Double slope(int xx, int xy, int yx, int yy) {
-        if (xx == yx) {
+    private Double slope(int x1, int y1, int x2, int y2) {
+        if (x1 == x2) { // Horizontal Line (x - constant)
             return Double.MAX_VALUE;
         }
 
-        if (xy == yy) {
+        if (y1 == y2) { // Vertical Line (y - constant)
             return 0.0;
         }
 
-        return (double) (xy - yy) / (double) (xx - yx);
+        return (double) (y1 - y2) / (double) (x1 - x2);
     }
 
     public int maxPointsTriangleArea(int[][] points) {

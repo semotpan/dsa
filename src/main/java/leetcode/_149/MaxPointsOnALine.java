@@ -40,7 +40,7 @@ public class MaxPointsOnALine {
         }
 
         if (y1 == y2) { // Vertical Line (y - constant)
-            return 0.0;  // bucket for horizontal
+            return 0.0;  // bucket for vertical
         }
 
         return (double) (y1 - y2) / (double) (x1 - x2);

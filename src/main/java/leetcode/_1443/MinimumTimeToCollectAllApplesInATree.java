@@ -4,44 +4,74 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinimumTimeToCollectAllApplesInATree {
-
-    private List<Boolean> hasApple;
-    private List<Integer>[] adj;
-
     public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
-        this.hasApple = hasApple;
-        this.adj = new List[n];
+        var G = new Graph(n, edges);
+        var dfsFinder = new DFSMinimumTimeFinder(G, hasApple);
+        return dfsFinder.minTimes();
+    }
+}
 
-        for (int i = 0; i < n; i++) {
-            adj[i] = new ArrayList<>(20);
+final class Graph {
+    private final int V;
+    private final List<Integer>[] adj;
+
+    public Graph(int v, int[][] edges) {
+        this.V = v;
+        adj = new List[v];
+
+        for (var i = 0; i < V; i++) {
+            adj[i] = new ArrayList<>();
         }
 
-        for (int[] edge : edges) {
+        for (var edge : edges) {
             adj[edge[0]].add(edge[1]);
             adj[edge[1]].add(edge[0]);
         }
+    }
 
-        return dfs(-1, 0);
+    public boolean isLeaf(int v) {
+        return adj[v].isEmpty();
+    }
+
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
+    }
+}
+
+final class DFSMinimumTimeFinder {
+
+    private final Graph G;
+    private final List<Boolean> hasApple;
+    private final int minTimes;
+
+    public DFSMinimumTimeFinder(Graph G, List<Boolean> hasApple) {
+        this.G = G;
+        this.hasApple = hasApple;
+        this.minTimes = dfs(-1, 0);
     }
 
     private int dfs(int parent, int v) {
-        if (adj[v].isEmpty()) {
+        if (G.isLeaf(v)) {
             return 0;
         }
 
-        int total = 0;
-        for (var w : adj[v]) {
+        var totalTimes = 0;
+        for (var w : G.adj(v)) {
             if (w == parent) {
                 continue;
             }
 
             var childTime = dfs(v, w);
 
-            if (childTime > 0 || hasApple.get(w)) {
-                total += childTime + 2;
+            if (hasApple.get(w) || childTime > 0) {
+                totalTimes += childTime + 2;
             }
         }
 
-        return total;
+        return totalTimes;
+    }
+
+    public int minTimes() {
+        return minTimes;
     }
 }

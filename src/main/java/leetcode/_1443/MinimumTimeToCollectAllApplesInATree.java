@@ -6,7 +6,7 @@ import java.util.List;
 public class MinimumTimeToCollectAllApplesInATree {
     public int minTime(int n, int[][] edges, List<Boolean> hasApple) {
         var G = new Graph(n, edges);
-        var dfsFinder = new DFSMinimumTimeFinder(G, hasApple);
+        var dfsFinder = new DFSFinder(G, hasApple);
         return dfsFinder.minTimes();
     }
 }
@@ -38,13 +38,13 @@ final class Graph {
     }
 }
 
-final class DFSMinimumTimeFinder {
+final class DFSFinder {
 
     private final Graph G;
     private final List<Boolean> hasApple;
     private final int minTimes;
 
-    public DFSMinimumTimeFinder(Graph G, List<Boolean> hasApple) {
+    public DFSFinder(Graph G, List<Boolean> hasApple) {
         this.G = G;
         this.hasApple = hasApple;
         this.minTimes = dfs(-1, 0);

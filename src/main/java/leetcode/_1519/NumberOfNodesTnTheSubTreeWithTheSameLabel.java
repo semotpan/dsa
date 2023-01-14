@@ -34,10 +34,6 @@ class Graph {
         return V;
     }
 
-    public boolean isLeaf(int v) {
-        return adj[v].isEmpty();
-    }
-
     public Iterable<Integer> adj(int v) {
         return adj[v];
     }
@@ -60,10 +56,6 @@ class DFSLabelCounter {
 
     private void dfs(int parent, int v) {
         var prevState = frequency[labels.charAt(v) - 'a']++;
-
-        if (G.isLeaf(v)) {
-            return;
-        }
 
         for (var w : G.adj(v)) {
             if (w == parent) {

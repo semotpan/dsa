@@ -1,16 +1,32 @@
 package leetcode._57;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 public class InsertInterval {
 
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        if (intervals.length == 0) {
-            return new int[][]{newInterval};
-        }
 
-        var answer = new ArrayList<int[]>(intervals.length);
+        var answer = new LinkedList<int[]>();
+
+        for (var interval : intervals) {
+            if (interval[1] < newInterval[0]) {
+                answer.add(interval);
+            } else if (newInterval[1] < interval[0]) {
+                answer.add(newInterval);
+                newInterval = interval;
+            } else {
+                newInterval[0] = Integer.min(newInterval[0], interval[0]);
+                newInterval[1] = Integer.max(newInterval[1], interval[1]);
+            }
+        }
+        answer.add(newInterval);
+
+        return answer.toArray(new int[answer.size()][]);
+    }
+
+    public int[][] insert2(int[][] intervals, int[] newInterval) {
+
+        var answer = new LinkedList<int[]>();
 
         var i = 0;
         while (i < intervals.length && !isOverlap(intervals[i], newInterval)) {

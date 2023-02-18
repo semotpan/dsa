@@ -16,6 +16,17 @@ public class ListNode {
         return new ListNode(x, null);
     }
 
+    public static ListNode of(int[] x) {
+        var head = of(0);
+        var iter = head;
+        for (var v : x) {
+            iter.next = of(v);
+            iter = iter.next;
+        }
+
+        return head.next;
+    }
+
     public static ListNode of(int x, ListNode next) {
         return new ListNode(x, next);
     }

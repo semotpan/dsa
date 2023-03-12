@@ -21,7 +21,10 @@ class FizzBuzzMultithreadedTest {
     @ParameterizedTest
     @MethodSource(value = "dataset")
     void testing(int n, Object[] expected) throws InterruptedException {
-        var fizzBuzz = new FizzBuzzMultithreaded(n);
+//        var fizzBuzz = new FizzBuzzMultithreaded.AtomicFizzBuzz(n);
+//        var fizzBuzz = new FizzBuzzMultithreaded.SynchronizedFizzBuzz(n);
+//        var fizzBuzz = new FizzBuzzMultithreaded.SynchronizedMutexFizzBuzz(n);
+        var fizzBuzz = new FizzBuzzMultithreaded.LockFizzBuzz(n);
 
         var executor = Executors.newFixedThreadPool(4);
         var latch = new CountDownLatch(4);
